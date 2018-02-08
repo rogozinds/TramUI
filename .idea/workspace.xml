@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="32936b55-e57b-4d88-966e-821129b0eb4a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/B0107NR9L2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/screen.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/screen.png.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/affinity_tests.py" afterPath="$PROJECT_DIR$/affinity_tests.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base_test.py" afterPath="$PROJECT_DIR$/base_test.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ghostdriver.log" afterPath="$PROJECT_DIR$/ghostdriver.log" />
-    </list>
+    <list default="true" id="32936b55-e57b-4d88-966e-821129b0eb4a" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
