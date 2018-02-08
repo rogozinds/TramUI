@@ -9,24 +9,6 @@ ASIN_TO_CONTENT = {"B0014WJYOG": "Amazon'a özel cep telefonu fırsatlarını bu
                    "B0107NR9L2": "Amazon'a özel cep telefonu fırsatlarını buradan keşfedin3."
                    }
 
-
-
-def constructURL(base, asin):
-    return base + asin
-
-
-def testQPETag(asinToContent):
-    for asin, expectedContent in asinToContent.items():
-        driver = openPage(constructURL(DP_URL, asin))
-        body =  driver.find_elements_by_tag_name("body")[0]
-        qpeTitleElem = body.find_element_by_id("qpeTitleTag_feature_div")
-        actual = qpeTitleElem.get_property("text")
-        if actual != expectedContent:
-            print(f"ASIN {asin} has wrong qpeTitle Value. exp {expectedContent}, actual {asinToContent} ")
-            driver.save_screenshot(asin + ".png")
-    print("Done! If this the only output everything is OK!")
-
-
 #Tests
 #testQPETag(ASIN_TO_CONTENT)
 class QpeTest(base_test.BaseTest):
