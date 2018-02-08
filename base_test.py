@@ -21,6 +21,14 @@ class BaseTest(unittest.TestCase):
         self.driver.set_window_size(1024, 768)  # optional
         self.url = "https://tr-pre-prod.amazon.com/dp/B01BTZFM0W"
 
+    def addWeblab(self, weblab):
+        self.driver.add_cookie({
+            'name': 'experiment',
+            'value': weblab,
+            'domain': '.amazon.com',
+            'path': '/'
+        })
+
     #Method of the parent class, that will be called before run test
     def setUp(self):
         self.driver.get(self.url)
