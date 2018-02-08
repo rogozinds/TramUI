@@ -1,11 +1,17 @@
+import unittest
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-import unittest
-# content is coming from content  symphony
-# https://symphony.integ.amazon.com/creatives/56e9361d-7488-44da-a887-1d587c0b817c
 
-#Tests
-#testQPETag(ASIN_TO_CONTENT)
+from selenium.webdriver.support.events import EventFiringWebDriver
+from selenium.webdriver.support.events import AbstractEventListener
+
+class ScreenshotListener(AbstractEventListener):
+    def on_exception(self, exception, driver):
+        filename = driver.current_url.replace('https://tr-pre-prod.amazon.com/', '').replace('/', '_')
+        screenshot_name = filename + ".png"
+        driver.get_screenshot_as_file(screenshot_name)
+        print("Screenshot saved as '%s'" % screenshot_name)
+
 class BaseTest(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
@@ -17,7 +23,8 @@ class BaseTest(unittest.TestCase):
             "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/53 "
             "(KHTML, like Gecko) Chrome/15.0.87"
         )
-        self.driver = webdriver.PhantomJS(service_args=SERVICE_ARGS, desired_capabilities=dcap)
+        driver = webdriver.PhantomJS(service_args=SERVICE_ARGS, desired_capabilities=dcap)
+        self.driver = EventFiringWebDriver(driver, ScreenshotListener())
         self.driver.set_window_size(1024, 768)  # optional
         self.url = "https://tr-pre-prod.amazon.com/dp/B01BTZFM0W"
 
