@@ -8,7 +8,7 @@ from selenium.webdriver.support.events import AbstractEventListener
 class ScreenshotListener(AbstractEventListener):
     def on_exception(self, exception, driver):
         filename = driver.current_url.replace('https://tr-pre-prod.amazon.com/', '').replace('/', '_')
-        screenshot_name = filename + ".png"
+        screenshot_name = self.test_name + '_' + filename + '.png'
         driver.get_screenshot_as_file(screenshot_name)
         print("Screenshot saved as '%s'" % screenshot_name)
 
@@ -24,7 +24,8 @@ class BaseTest(unittest.TestCase):
             "(KHTML, like Gecko) Chrome/15.0.87"
         )
         driver = webdriver.PhantomJS(service_args=SERVICE_ARGS, desired_capabilities=dcap)
-        self.driver = EventFiringWebDriver(driver, ScreenshotListener())
+        self.error_listener = ScreenshotListener()
+        self.driver = EventFiringWebDriver(driver, self.error_listener)
         self.driver.set_window_size(1024, 768)  # optional
         self.url = "https://tr-pre-prod.amazon.com/dp/B01BTZFM0W"
 
@@ -38,6 +39,7 @@ class BaseTest(unittest.TestCase):
 
     #Method of the parent class, that will be called before run test
     def setUp(self):
+        self.error_listener.test_name = self._testMethodName
         self.driver.get(self.url)
         if len(self.driver.find_elements_by_tag_name("body")[0].find_elements_by_tag_name("div")) == 0:
             raise AssertionError("The body of the page has no divs ")
