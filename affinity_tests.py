@@ -10,21 +10,6 @@ ASIN_TO_CONTENT = {"B0014WJYOG": "Amazon'a özel cep telefonu fırsatlarını bu
                    }
 
 
-def openPage(url):
-    SERVICE_ARGS = ['--ignore-ssl-errors=true', '--ssl-protocol=any']
-    dcap = dict(DesiredCapabilities.PHANTOMJS)
-    # emulate userAgent as OPF will return empty webpage for "bots"
-    dcap["phantomjs.page.settings.userAgent"] = (
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/53 "
-        "(KHTML, like Gecko) Chrome/15.0.87"
-    )
-    driver = webdriver.PhantomJS(service_args=SERVICE_ARGS, desired_capabilities=dcap)
-    driver.set_window_size(1024, 768)  # optional
-    driver.get(url)
-    if len(driver.find_elements_by_tag_name("body")[0].find_elements_by_tag_name("div"))==0:
-        raise AssertionError("The body of the page has no divs ")
-    return driver
-
 
 def constructURL(base, asin):
     return base + asin
@@ -45,11 +30,18 @@ def testQPETag(asinToContent):
 #Tests
 #testQPETag(ASIN_TO_CONTENT)
 class QpeTest(base_test.BaseTest):
-        # base_test.BaseTest.url = "https://tr-pre-prod.amazon.com/dp/B01BTZFM0W"
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.url = "https://tr-pre-prod.amazon.com/dp/B01BTZFM0W"
 
     def runTest(self):
-        self.assertEqual('foo'.upper(), 'FObaO')
+        body = self.driver.find_elements_by_tag_name("body")[0]
+        qpeTitleElem = body.find_element_by_id("qpeTitleTag_feature_div")
+        actual = qpeTitleElem.text
+        expectedContent = "foo"
+        asin = "B01BTZFM0W"
+        self.assertEqual(actual,expectedContent, f"ASIN {asin} has wrong qpeTitle Value. exp {expectedContent}, actual {actual} ")
 
 
 suite = unittest.TestLoader().loadTestsFromTestCase(QpeTest)

@@ -7,11 +7,6 @@ import unittest
 #Tests
 #testQPETag(ASIN_TO_CONTENT)
 class BaseTest(unittest.TestCase):
-    url = "https://tr-pre-prod.amazon.com/dp/B01BTZFM0W"
-    #Opens the url in browser returns a driver
-
-    def __init__(self):
-        super()
 
     def openPage(self, url):
         SERVICE_ARGS = ['--ignore-ssl-errors=true', '--ssl-protocol=any']
@@ -33,5 +28,5 @@ class BaseTest(unittest.TestCase):
         self.driver = self.openPage(self.url)
 
     def tearDown(self):
-        self.driver.save_screenshot("screen.png")
+        # self.driver.save_screenshot("screen.png")
         self.driver.quit()
