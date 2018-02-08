@@ -3,15 +3,12 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import unittest
 import base_test
 
-
-DP_URL = 'https://tr-development.amazon.com/dp/'
-
 #Tests
 class TitleTest(base_test.BaseTest):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.url = "https://tr-pre-prod.amazon.com/dp/B01BTZFM0W"
+        self.url = self.base_url + "/dp/B01BTZFM0W"
         self.addWeblab('DP_PINFO_TITLE_REARCH_111070:T1')
 
     # def test_no_title(self):

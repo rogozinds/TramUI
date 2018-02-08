@@ -5,9 +5,11 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.events import EventFiringWebDriver
 from selenium.webdriver.support.events import AbstractEventListener
 
+BASE_URL = "https://tr-pre-prod.amazon.com/"  #GAMMA
+#BASE_URL = "https://tr-development.amazon.com" #BETA
 class ScreenshotListener(AbstractEventListener):
     def on_exception(self, exception, driver):
-        filename = driver.current_url.replace('https://tr-pre-prod.amazon.com/', '').replace('/', '_')
+        filename = driver.current_url.replace(BASE_URL, '').replace('/', '_')
         screenshot_name = self.test_name + '_' + filename + '.png'
         driver.get_screenshot_as_file(screenshot_name)
         print("Screenshot saved as '%s'" % screenshot_name)
@@ -27,7 +29,7 @@ class BaseTest(unittest.TestCase):
         self.error_listener = ScreenshotListener()
         self.driver = EventFiringWebDriver(driver, self.error_listener)
         self.driver.set_window_size(1024, 768)  # optional
-        self.url = "https://tr-pre-prod.amazon.com/dp/B01BTZFM0W"
+        self.base_url = BASE_URL
 
     def addWeblab(self, weblab):
         self.driver.add_cookie({
