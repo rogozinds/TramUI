@@ -23,7 +23,7 @@ class QpeTest(base_test.BaseTest):
         elem = self.body.find_element_by_id("featurebullets_feature_div")
         contentList = elem.find_elements_by_css_selector("li")
         expectedNElements= 5;
-        self.assertGreaterEqual(len(contentList),expectedNElements, "The feature bullets should have at least {expectedNElements} items".format(asin=asin, expectedNElements=expectedNElements, actual=actual))
+        self.assertGreaterEqual(len(contentList), expectedNElements, "The feature bullets should have at least {expectedNElements} items".format(expectedNElements=expectedNElements))
 
 
     # test image block has non empty images
@@ -38,7 +38,7 @@ class QpeTest(base_test.BaseTest):
         #for some reason first element has 0x0 size, excluding it.
         for image in images[1:len(images)]:
             width = image.size['width'];
-            self.assertGreaterEqual(width, expectedWidth, "Image size should be bigger than {expectedWidth}".format(asin=asin, expectedWidth=expectedWidth, actual=actual))
+            self.assertGreaterEqual(width, expectedWidth, "Image size should be bigger than {expectedWidth}".format(expectedWidth=expectedWidth))
 
 suite = unittest.TestLoader().loadTestsFromTestCase(QpeTest)
 unittest.TextTestRunner(verbosity=2).run(suite)
