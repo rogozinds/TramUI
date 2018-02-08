@@ -26,6 +26,8 @@ class BaseTest(unittest.TestCase):
         self.driver.get(self.url)
         if len(self.driver.find_elements_by_tag_name("body")[0].find_elements_by_tag_name("div")) == 0:
             raise AssertionError("The body of the page has no divs ")
+        else:
+            self.body = self.driver.find_elements_by_tag_name("body")[0]
 
     def tearDown(self):
         # self.driver.save_screenshot("screen.png")

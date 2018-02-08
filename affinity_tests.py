@@ -19,8 +19,7 @@ class QpeTest(base_test.BaseTest):
 
     #Test content of the QPE Title Tag
     def test_qpe_title_tag(self):
-        body = self.driver.find_elements_by_tag_name("body")[0]
-        qpeTitleElem = body.find_element_by_id("qpeTitleTag_feature_div")
+        qpeTitleElem = self.body.find_element_by_id("qpeTitleTag_feature_div")
         actual = qpeTitleElem.text
         expectedContent = "Amazon'a özel cep telefonu fırsatlarını buradan keşfedin."
         asin = "B01BTZFM0W"
@@ -28,8 +27,7 @@ class QpeTest(base_test.BaseTest):
 
     #Test features bullets has 5 or more items
     def test_feature_bullets_is_not_empty(self):
-        body = self.driver.find_elements_by_tag_name("body")[0]
-        elem = body.find_element_by_id("featurebullets_feature_div")
+        elem = self.body.find_element_by_id("featurebullets_feature_div")
         contentList = elem.find_elements_by_css_selector("li")
         expectedNElements= 5;
         self.assertGreaterEqual(len(contentList),expectedNElements, f"The feature bullets should have at least {expectedNElements} items")
@@ -37,8 +35,7 @@ class QpeTest(base_test.BaseTest):
 
     # test image block has non empty images
     def test_image_block_alt_images_are_not_empty(self):
-        body = self.driver.find_elements_by_tag_name("body")[0]
-        elem = body.find_element_by_id("imageBlock_feature_div")
+        elem = self.body.find_element_by_id("imageBlock_feature_div")
         contentList = elem.find_elements_by_id("altImages")
 
         self.assertGreater(len(contentList),0, "altImages size should be more  than 0")
